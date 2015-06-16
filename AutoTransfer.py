@@ -25,7 +25,6 @@ class AutoTransfer():
         self.loginHeader = { 
             'Host': 'rs.xidian.edu.cn',
             'Connection': 'keep-alive',
-            #'Content-Length': '107',
             'Cache-Control': 'max-age=0',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'Origin': 'http://rs.xidian.edu.cn',
@@ -68,7 +67,7 @@ class AutoTransfer():
         reg = r'formhash=.*"'
         temp = re.compile(reg)
         query = re.findall(temp,html)
-        self.transferData['formhash'] = query[0][9:len(query[0])-1]
+        self.transferData['formhash'] = query[0][9:len(query[0])-1] #登陆以后得获取formhash值
         return
 
     def FetchId(self):
@@ -77,15 +76,13 @@ class AutoTransfer():
         idList = []
         link = ''
         reg = r'xi2".*</a></s'
-        for i in range(1, 6):
+        for i in range(1, 7): #猜番帖6页顶天了
             link = self.address + str(i)
             html = self.s.get(link).text           
             temp = re.compile(reg)
             query = re.findall(temp,html)
-            if(len(query) == 0):
-                break
             idList += [single[single.index('>') + 1:len(single) - 7] for single in query]
-            if(len(query) < 10):
+            if(len(query) < 10): #已到最后一页
                 break
         if len(idList) != 0:     
            idList.pop(0) #删掉楼主
@@ -120,7 +117,6 @@ if __name__ == '__main__':
     user = config[0][0:len(config[0]) - 1]
     password = config[1][0:len(config[1]) - 1]
     tid = config[2]
-    print user,password,tid
     address = 'http://rs.xidian.edu.cn/forum.php?mod=viewthread&tid=' + str(tid) + '&extra=&page='
     trans = AutoTransfer(user, password, address)
     trans.Work()
