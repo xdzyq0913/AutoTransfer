@@ -5,6 +5,7 @@ import hashlib
 
 
 def MD5(src):
+    '''密码MD5加密'''
     m = hashlib.md5()
     m.update(src)
     return m.hexdigest()
@@ -103,7 +104,7 @@ class AutoTransfer():
         '''主要事件循环'''
         toList = self.FetchId()
         if len(toList) == 0:
-            print 'nobody, please check the tid'
+            print 'nobody, please check your config'
             return
         for to in toList:
             print 'Next one is : %s\n' %(to)
