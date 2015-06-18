@@ -98,7 +98,6 @@ class AutoTransfer():
 
     def Transfer(self, to, amount):
         '''转账'''
-        print type(amount)
         if(amount == '0' or amount == '1'): #输入为0或1则不转账
             return
         amount = string.atoi(amount) * 100
