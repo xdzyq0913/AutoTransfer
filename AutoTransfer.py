@@ -118,7 +118,7 @@ class AutoTransfer():
         
     def Work(self):
         '''主要事件循环'''
-        self.FetchId()
+        self.FetchInfo()
         if len(self.idList) == 0:
             print 'nobody, please check the tid'
             return
